@@ -1,4 +1,4 @@
-import { isArray, iSArray, isNumber, isString } from "../utils";
+import { isArray, isNumber, isString } from "../utils";
 
 export const ShapeFlags = {
     ELEMENT: 1,
@@ -34,6 +34,7 @@ export function h(type,props,children) {
 
     if(isString(children)||isNumber(children)){
         shapeFlag|= ShapeFlags.TEXT_CHILDREN
+        children = children.toString()
     }else if(isArray(children)){
         shapeFlag|=ShapeFlags.ARRAY_CHILDREN
     }
@@ -42,7 +43,11 @@ export function h(type,props,children) {
         type,
         props,
         children,
-        shapeFlag
+        // 用来判断当前节点类型
+        shapeFlag,
+        // 这里的el是对应真实dom节点，为了让该节点方便找到父节点
+        el:null,
+        anchor:null
     }
 
 }

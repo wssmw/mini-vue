@@ -55,6 +55,7 @@ export function reactive(target){
             // ?这里为什么要用reflect
             const res = Reflect.set(target,key,value,receiver)
             // 判断数据是否修改，避免不必要的修改（特殊情况3）
+            console.log('oldValue:',oldValue,'newValue:',value);
             if(hasChanged(oldValue,value)){
                 trigger(target,key)//触发更新
                 // 对数组的特殊处理
